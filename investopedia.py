@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from getpass import getpass
+import chromedriver_binary
 import time
 
 
@@ -10,8 +11,7 @@ def load(url):
     options.binary_location = (
         r"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
     )
-    chrome_driver_binary = r"C:\ProgramData\chocolatey\bin\chromedriver.exe"
-    driver = webdriver.Chrome(chrome_driver_binary, chrome_options=options)
+    driver = webdriver.Chrome(chrome_options=options)
     driver.implicitly_wait(10)
 
     driver.get(url)

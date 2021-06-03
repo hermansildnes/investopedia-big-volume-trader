@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3238df6e59c274eadbae5aab9977bf56babe3b8a51093bafaf45b1236a0a08e2"
+            "sha256": "3e092f50c1dd2a4c918e9266fcd065240e43cbd60e9c5c10baa0bca1c6a3d19f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,21 @@
         ]
     },
     "default": {
+        "chromedriver-autoinstaller": {
+            "hashes": [
+                "sha256:b17108315c375e29f6efd4324dde4c8be7074b87baffccb583c2018c096a6f74",
+                "sha256:c5ba6074b08aac8d669d4761fcab11408189ee64074e1f1c94b70dca5c29a988"
+            ],
+            "index": "pypi",
+            "version": "==0.2.2"
+        },
+        "chromedriver-binary": {
+            "hashes": [
+                "sha256:6256e902d470dce9f046d171ffb7b6f3060c21fc0625cc149f666f71fd3ae077"
+            ],
+            "index": "pypi",
+            "version": "==91.0.4472.19.0"
+        },
         "fake-useragent": {
             "hashes": [
                 "sha256:c104998b750eb097eefc28ae28e92d66397598d2cf41a31aa45d5559ef1adf35"

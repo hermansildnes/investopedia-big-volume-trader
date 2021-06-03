@@ -9,6 +9,8 @@ black = "*"
 [packages]
 selenium = "*"
 fake-useragent = "*"
+chromedriver-binary = "*"
+chromedriver-autoinstaller = "*"
 
 [requires]
 python_version = "3.8"
