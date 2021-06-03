@@ -12,7 +12,7 @@ def load(url):
         r"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
     )
     driver = webdriver.Chrome(chrome_options=options)
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(3)
 
     driver.get(url)
     return driver
@@ -27,53 +27,43 @@ def login(driver, username, password):
     pfield.clear()
 
     ufield.send_keys(username)
-    time.sleep(0.5)
+    time.sleep(0.25)
 
     pfield.send_keys(password)
-    time.sleep(0.5)
+    time.sleep(0.25)
 
     login.click()
 
 
 def buy(driver, ticker, quantity, trade_url):
     driver.get(trade_url)
-    symbolfield = driver.find_element_by_name("symbolTextbox")
-    symbolfield.send_keys(ticker)
-    time.sleep(0.5)
-    quantityfield = driver.find_element_by_name("quantityTextbox")
-    quantityfield.send_keys(quantity)
-    time.sleep(0.5)
-    confirm = driver.find_element_by_id("sendConfirmationEmailCheckBox")
-    confirm.click()
-    time.sleep(0.5)
-    previewButton = driver.find_element_by_id("previewButton")
-    previewButton.click()
+    driver.find_element_by_name("symbolTextbox").send_keys(ticker)
+    time.sleep(0.25)
+    driver.find_element_by_name("quantityTextbox").send_keys(quantity)
+    time.sleep(0.25)
+    driver.find_element_by_id("sendConfirmationEmailCheckBox").click()
+    time.sleep(0.25)
+    driver.find_element_by_id("previewButton").click()
     time.sleep(1)
-    submit = driver.find_element_by_name("submitOrder")
-    submit.click()
+    driver.find_element_by_name("submitOrder").click()
     time.sleep(1)
 
 
 def sell(driver, ticker, quantity, trade_url):
     driver.get(trade_url)
-    symbolfield = driver.find_element_by_name("symbolTextbox")
-    symbolfield.send_keys(ticker)
-    time.sleep(0.5)
+    driver.find_element_by_name("symbolTextbox").send_keys(ticker)
+    time.sleep(0.25)
     select = Select(driver.find_element_by_name("transactionTypeDropDown"))
-    time.sleep(0.5)
+    time.sleep(0.25)
     select.select_by_visible_text("Sell")
-    time.sleep(0.5)
-    quantityfield = driver.find_element_by_name("quantityTextbox")
-    quantityfield.send_keys(quantity)
-    time.sleep(0.5)
-    confirm = driver.find_element_by_id("sendConfirmationEmailCheckBox")
-    confirm.click()
-    time.sleep(0.5)
-    previewButton = driver.find_element_by_id("previewButton")
-    previewButton.click()
+    time.sleep(0.25)
+    driver.find_element_by_name("quantityTextbox").send_keys(quantity)
+    time.sleep(0.25)
+    driver.find_element_by_id("sendConfirmationEmailCheckBox").click()
+    time.sleep(0.25)
+    driver.find_element_by_id("previewButton").click()
     time.sleep(1)
-    submit = driver.find_element_by_name("submitOrder")
-    submit.click()
+    driver.find_element_by_name("submitOrder").click()
     time.sleep(1)
 
 
@@ -86,24 +76,19 @@ def sellall(driver, ticker, trade_url):
         else:
             tempsell = tosell
         driver.get(trade_url)
-        symbolfield = driver.find_element_by_name("symbolTextbox")
-        symbolfield.send_keys(ticker)
-        time.sleep(0.5)
+        driver.find_element_by_name("symbolTextbox").send_keys(ticker)
+        time.sleep(0.25)
         select = Select(driver.find_element_by_name("transactionTypeDropDown"))
-        time.sleep(0.5)
+        time.sleep(0.25)
         select.select_by_visible_text("Sell")
-        time.sleep(0.5)
-        quantityfield = driver.find_element_by_name("quantityTextbox")
-        quantityfield.send_keys(tempsell)
-        time.sleep(0.5)
-        confirm = driver.find_element_by_id("sendConfirmationEmailCheckBox")
-        confirm.click()
-        time.sleep(0.5)
-        previewButton = driver.find_element_by_id("previewButton")
-        previewButton.click()
+        time.sleep(0.25)
+        driver.find_element_by_name("quantityTextbox").send_keys(tempsell)
+        time.sleep(0.25)
+        driver.find_element_by_id("sendConfirmationEmailCheckBox").click()
+        time.sleep(0.25)
+        driver.find_element_by_id("previewButton").click()
         time.sleep(1)
-        submit = driver.find_element_by_name("submitOrder")
-        submit.click()
+        driver.find_element_by_name("submitOrder").click()
         time.sleep(1)
         tosell -= tempsell
         if tosell <= 0:
@@ -125,7 +110,7 @@ if ACTION.upper() != "SELL ALL":
 driver = load(URL)
 time.sleep(3)
 login(driver, USERNAME, PASSWORD)
-time.sleep(5)
+time.sleep(3)
 
 if ACTION.upper() == "BUY":
     for i in range(int(AMOUNT)):
@@ -141,3 +126,5 @@ elif ACTION.upper() == "SELL ALL":
 else:
     driver.quit()
     raise Exception("Illegal action submitted! Try again...")
+
+driver.quit()
