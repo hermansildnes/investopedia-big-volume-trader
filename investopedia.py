@@ -8,6 +8,7 @@ import time
 
 def load(url):
     options = webdriver.ChromeOptions()
+    #Change to path of any chromium-based browser of your choice
     options.binary_location = (
         r"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
     )
@@ -38,33 +39,33 @@ def login(driver, username, password):
 def buy(driver, ticker, quantity, trade_url):
     driver.get(trade_url)
     driver.find_element_by_name("symbolTextbox").send_keys(ticker)
-    time.sleep(0.25)
+    time.sleep(0.15)
     driver.find_element_by_name("quantityTextbox").send_keys(quantity)
-    time.sleep(0.25)
+    time.sleep(0.15)
     driver.find_element_by_id("sendConfirmationEmailCheckBox").click()
-    time.sleep(0.25)
+    time.sleep(0.15)
     driver.find_element_by_id("previewButton").click()
-    time.sleep(1)
+    time.sleep(0.5)
     driver.find_element_by_name("submitOrder").click()
-    time.sleep(1)
+    time.sleep(0.5)
 
 
 def sell(driver, ticker, quantity, trade_url):
     driver.get(trade_url)
     driver.find_element_by_name("symbolTextbox").send_keys(ticker)
-    time.sleep(0.25)
+    time.sleep(0.15)
     select = Select(driver.find_element_by_name("transactionTypeDropDown"))
-    time.sleep(0.25)
+    time.sleep(0.15)
     select.select_by_visible_text("Sell")
-    time.sleep(0.25)
+    time.sleep(0.15)
     driver.find_element_by_name("quantityTextbox").send_keys(quantity)
-    time.sleep(0.25)
+    time.sleep(0.15)
     driver.find_element_by_id("sendConfirmationEmailCheckBox").click()
-    time.sleep(0.25)
+    time.sleep(0.15)
     driver.find_element_by_id("previewButton").click()
-    time.sleep(1)
+    time.sleep(0.5)
     driver.find_element_by_name("submitOrder").click()
-    time.sleep(1)
+    time.sleep(0.5)
 
 
 def sellall(driver, ticker, trade_url):
@@ -77,19 +78,19 @@ def sellall(driver, ticker, trade_url):
             tempsell = tosell
         driver.get(trade_url)
         driver.find_element_by_name("symbolTextbox").send_keys(ticker)
-        time.sleep(0.25)
+        time.sleep(0.15)
         select = Select(driver.find_element_by_name("transactionTypeDropDown"))
-        time.sleep(0.25)
+        time.sleep(0.15)
         select.select_by_visible_text("Sell")
-        time.sleep(0.25)
+        time.sleep(0.15)
         driver.find_element_by_name("quantityTextbox").send_keys(tempsell)
-        time.sleep(0.25)
+        time.sleep(0.15)
         driver.find_element_by_id("sendConfirmationEmailCheckBox").click()
-        time.sleep(0.25)
+        time.sleep(0.15)
         driver.find_element_by_id("previewButton").click()
-        time.sleep(1)
+        time.sleep(0.5)
         driver.find_element_by_name("submitOrder").click()
-        time.sleep(1)
+        time.sleep(0.5)
         tosell -= tempsell
         if tosell <= 0:
             break
@@ -108,9 +109,9 @@ if ACTION.upper() != "SELL ALL":
 
 
 driver = load(URL)
-time.sleep(3)
+time.sleep(2)
 login(driver, USERNAME, PASSWORD)
-time.sleep(3)
+time.sleep(2)
 
 if ACTION.upper() == "BUY":
     for i in range(int(AMOUNT)):
@@ -128,3 +129,4 @@ else:
     raise Exception("Illegal action submitted! Try again...")
 
 driver.quit()
+print("\nDone!\n")
