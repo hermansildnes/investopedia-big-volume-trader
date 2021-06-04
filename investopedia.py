@@ -67,6 +67,66 @@ def sell(driver, ticker, quantity, trade_url):
     driver.find_element_by_name("submitOrder").click()
     time.sleep(0.5)
 
+def short(driver, ticker, quantity, trade_url):
+    driver.get(trade_url)
+    driver.find_element_by_name("symbolTextbox").send_keys(ticker)
+    time.sleep(0.15)
+    select = Select(driver.find_element_by_name("transactionTypeDropDown"))
+    time.sleep(0.15)
+    select.select_by_visible_text("Sell Short")
+    time.sleep(0.15)
+    driver.find_element_by_name("quantityTextbox").send_keys(quantity)
+    time.sleep(0.15)
+    driver.find_element_by_id("sendConfirmationEmailCheckBox").click()
+    time.sleep(0.15)
+    driver.find_element_by_id("previewButton").click()
+    time.sleep(0.5)
+    driver.find_element_by_name("submitOrder").click()
+    time.sleep(0.5)
+
+def cover(driver, ticker, quantity, trade_url):
+    driver.get(trade_url)
+    driver.find_element_by_name("symbolTextbox").send_keys(ticker)
+    time.sleep(0.15)
+    select = Select(driver.find_element_by_name("transactionTypeDropDown"))
+    time.sleep(0.15)
+    select.select_by_visible_text("Buy to Cover")
+    time.sleep(0.15)
+    driver.find_element_by_name("quantityTextbox").send_keys(quantity)
+    time.sleep(0.15)
+    driver.find_element_by_id("sendConfirmationEmailCheckBox").click()
+    time.sleep(0.15)
+    driver.find_element_by_id("previewButton").click()
+    time.sleep(0.5)
+    driver.find_element_by_name("submitOrder").click()
+    time.sleep(0.5)
+
+def coverall(driver, ticker, trade_url):
+    tosell = int(input("Stocks to cover: "))
+
+    while True:
+        if tosell > 999999:
+            tempsell = 999999
+        else:
+            tempsell = tosell
+        driver.get(trade_url)
+        driver.find_element_by_name("symbolTextbox").send_keys(ticker)
+        time.sleep(0.15)
+        select = Select(driver.find_element_by_name("transactionTypeDropDown"))
+        time.sleep(0.15)
+        select.select_by_visible_text("Buy to Cover")
+        time.sleep(0.15)
+        driver.find_element_by_name("quantityTextbox").send_keys(tempsell)
+        time.sleep(0.15)
+        driver.find_element_by_id("sendConfirmationEmailCheckBox").click()
+        time.sleep(0.15)
+        driver.find_element_by_id("previewButton").click()
+        time.sleep(0.5)
+        driver.find_element_by_name("submitOrder").click()
+        time.sleep(0.5)
+        tosell -= tempsell
+        if tosell <= 0:
+            break
 
 def sellall(driver, ticker, trade_url):
     tosell = int(input("Stocks to sell: "))
@@ -123,6 +183,17 @@ elif ACTION.upper() == "SELL":
 
 elif ACTION.upper() == "SELL ALL":
     sellall(driver, TICKER, TRADE_URL)
+
+elif ACTION.upper() == "COVER ALL":
+    coverall(driver, TICKER, TRADE_URL)
+
+elif ACTION.upper() == "SHORT":
+    for i in range(int(AMOUNT)):
+        short(driver, TICKER, QUANTITY, TRADE_URL)
+
+elif ACTION.upper() == "COVER":
+    for i in range(int(AMOUNT)):
+        cover(driver, TICKER, QUANTITY, TRADE_URL)
 
 else:
     driver.quit()
